@@ -1,0 +1,107 @@
+<!--Assignment-1 Calculator-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    .calculator {
+      background-color: #e8e8e8;
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      width: 280px;
+    }
+
+    #display {
+      background-color: #fff;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      padding: 16px 14px;
+      font-size: 24px;
+      text-align: right;
+      margin-bottom: 20px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      padding: 18px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      color: #333;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .operator {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .clear {
+      background-color: #e8292a;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <input type="text" id="display" readonly value="">
+
+    <div class="buttons">
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button class="operator" onclick="press('+')">+</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button class="operator" onclick="press('-')">-</button>
+
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button class="operator" onclick="press('*')">*</button>
+
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="press('0')">0</button>
+      <button class="operator" onclick="calculate()">=</button>
+      <button class="operator" onclick="press('/')">/</button>
+    </div>
+  </div>
+
+
+
+</body>
+</html>
