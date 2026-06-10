@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      padding: 40px 20px;
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      text-align: center;
+      color: #e8292a;
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+
+    /* ════════════════════════
+       FEATURES SECTION
+    ════════════════════════ */
+    .features {
+      margin-bottom: 50px;
+    }
+
+    .features-grid {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+    }
+
+    .feature-item {
+      text-align: center;
+      width: 110px;
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+    }
+
+    .feature-icon svg {
+      fill: white;
+      width: 28px;
+      height: 28px;
+    }
+
+    .feature-item h4 {
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .feature-item p {
+      font-size: 11px;
+      color: #777;
+    }
+
+    /* ════════════════════════
+       FEATURED GUESTS SECTION
+    ════════════════════════ */
+    .guests {
+      margin-bottom: 50px;
+    }
+
+    .guests-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .guest-card {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      width: 200px;
+    }
+
+    .guest-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .guest-card h4 {
+      font-size: 14px;
+      color: #e8292a;
+      margin-bottom: 8px;
+    }
+
+    .guest-card p {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .guest-card button {
+      background-color: #e8292a;
+      color: white;
+      border: none;
+      padding: 6px 18px;
+      font-size: 12px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .guest-card button:hover {
+      background-color: #c0201f;
+    }
+
+    /* ════════════════════════
+       BUY WHAT'S NEW SECTION
+    ════════════════════════ */
+    .buy-new h2 {
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .buy-grid {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .buy-card img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .buy-card h4 {
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .buy-card p {
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── FEATURES ── -->
+  <section class="features">
+    <h2>Get ready for seamless online music</h2>
+    <div class="features-grid">
+
+      <div class="feature-item">
+        <div class="feature-icon">
+          <!-- Download icon -->
+          <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-6 2h12v2H6v-2z"/></svg>
+        </div>
+        <h4>Offline mode</h4>
+        <p>Save and listen anywhere.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon">
+          <!-- HQ icon -->
+          <svg viewBox="0 0 24 24"><path d="M3 5v14h4v-5h2v5h4V5H9v5H7V5H3zm12 0v14h2v-6h2l2 6h2l-2-6c1.1-.4 2-1.5 2-3V8c0-1.7-1.3-3-3-3h-5zm2 2h3c.6 0 1 .4 1 1v3c0 .6-.4 1-1 1h-3V7z"/></svg>
+        </div>
+        <h4>High quality audio.</h4>
+        <p>Enjoy the full range of sound.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon">
+          <!-- No ads icon -->
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm5 13.6L15.6 17 12 13.4 8.4 17 7 15.6l3.6-3.6L7 8.4 8.4 7 12 10.6 15.6 7 17 8.4l-3.6 3.6 3.6 3.6z"/></svg>
+        </div>
+        <h4>No ads.</h4>
+        <p>Enjoy nonstop music.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon">
+          <!-- Skip icon -->
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2-8.1l4.5 2.1L8 14.1V9.9zM16 6h2v12h-2z"/></svg>
+        </div>
+        <h4>Unlimited skips.</h4>
+        <p>Just tap skip.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FEATURED GUESTS ── -->
+  <section class="guests">
+    <h2>Featured Guests</h2>
+    <div class="guests-grid">
+
+      <div class="guest-card">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Megan Smith">
+        <h4>Megan Smith</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, provident! Lorem ipsum dolor.</p>
+        <button>Register</button>
+      </div>
+
+      <div class="guest-card">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Brooke Kagle">
+        <h4>Brooke Kagle</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, provident! Lorem ipsum dolor.</p>
+        <button>Register</button>
+      </div>
+
+      <div class="guest-card">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Philip Martin">
+        <h4>Philip Martin</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, provident! Lorem ipsum dolor.</p>
+        <button>Register</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── BUY WHAT'S NEW ── -->
+  <section class="buy-new">
+    <h2>BUY WHAT'S NEW</h2>
+    <div class="buy-grid">
+
+      <div class="buy-card">
+        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200&q=80" alt="Garage Band">
+        <h4>Garage Band</h4>
+        <p>Radio Station</p>
+      </div>
+
+      <div class="buy-card">
+        <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=200&q=80" alt="Garage Band">
+        <h4>Garage Band</h4>
+        <p>Radio Station</p>
+      </div>
+
+      <div class="buy-card">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&q=80" alt="Garage Band">
+        <h4>Garage Band</h4>
+        <p>Radio Station</p>
+      </div>
+
+      <div class="buy-card">
+        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=200&q=80" alt="Garage Band">
+        <h4>Garage Band</h4>
+        <p>Radio Station</p>
+      </div>
+
+      <div class="buy-card">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=200&q=80" alt="Garage Band">
+        <h4>Garage Band</h4>
+        <p>Radio Station</p>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
