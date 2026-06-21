@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital Management App</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+    }
+
+    header {
+      background: black;
+      color: white;
+      padding: 18px 32px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+
+    /* FORM CARD */
+    .form-card {
+      background: white;
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 28px;
+    }
+
+    .form-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0a6e55;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    input, select {
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid #d1d9e0;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #222;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus {
+      border-color: #0a6e55;
+      box-shadow: 0 0 0 3px rgba(10,110,85,0.12);
+    }
+
+    .submit-row {
+      margin-top: 20px;
+    }
+
+    button[type="submit"] {
+      height: 40px;
+      padding: 0 28px;
+      background: #0a6e55;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      font-family: inherit;
+    }
+
+    button[type="submit"]:hover { background: #085040; }
+    button[type="submit"]:active { transform: scale(0.98); }
+
+    /* TABLE CARD */
+    .table-card {
+      background: white;
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    .table-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0a6e55;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 13px;
+    }
+
+    thead tr {
+      background: #f6faf8;
+    }
+
+    th {
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #555;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f0f4f0;
+      color: #222;
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faf8; }
+
+    /* ROLE BADGES */
+    .role {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .role-senior  { background: #d4edda; color: #155724; }
+    .role-junior  { background: #fff3cd; color: #856404; }
+    .role-trainee { background: #f8d7da; color: #721c24; }
+
+    /* DELETE BUTTON */
+    .delete-btn {
+      padding: 5px 12px;
+      background: #fff0f0;
+      color: #c0392b;
+      border: 1px solid #f5c6cb;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+    .delete-btn:hover { background: #f5c6cb; }
+
+    /* EMPTY STATE */
+    #empty-row td {
+      text-align: center;
+      color: #aaa;
+      padding: 32px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .container { margin: 16px auto; }
+      .form-card, .table-card { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>🏥 Hospital Management App</header>
+
+  <div class="container">
+
+    <div class="form-card">
+      <h2>Add Doctor Details</h2>
+      <form id="doctorForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Name of the Doctor</label>
+            <input type="text" id="name" placeholder="e.g. Dr. Priya Mehta" required />
+          </div>
+          <div class="form-group">
+            <label>Doctor ID</label>
+            <input type="text" id="doctorId" placeholder="e.g. DOC-101" required />
+          </div>
+          <div class="form-group">
+            <label>Specialisation</label>
+            <select id="specialisation" required>
+              <option value="">-- Select --</option>
+              <option>Dermatologist</option>
+              <option>ENT</option>
+              <option>Dentist</option>
+              <option>Gynaecologist</option>
+              <option>COVID</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Experience in Years</label>
+            <input type="number" id="experience" placeholder="e.g. 4" min="0" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="doctor@hospital.com" required />
+          </div>
+          <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="tel" id="mobile" placeholder="e.g. 9876543210" required />
+          </div>
+        </div>
+        <div class="submit-row">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-card">
+      <h2>Doctor Records</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Doctor ID</th>
+              <th>Specialisation</th>
+              <th>Experience in Years</th>
+              <th>Email Address</th>
+              <th>Mobile Number</th>
+              <th>Role</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr id="empty-row"><td colspan="8">No records yet. Add a doctor above.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('doctorForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name           = document.getElementById('name').value;
+      const doctorId       = document.getElementById('doctorId').value;
+      const specialisation = document.getElementById('specialisation').value;
+      const experience     = parseInt(document.getElementById('experience').value);
+      const email          = document.getElementById('email').value;
+      const mobile         = document.getElementById('mobile').value;
+
+      let role, roleClass;
+      if (experience > 5) {
+        role = 'Senior';  roleClass = 'role-senior';
+      } else if (experience >= 2 && experience <= 5) {
+        role = 'Junior';  roleClass = 'role-junior';
+      } else {
+        role = 'Trainee'; roleClass = 'role-trainee';
+      }
+
+      // Remove empty state row
+      const emptyRow = document.getElementById('empty-row');
+      if (emptyRow) emptyRow.remove();
+
+      const tbody = document.getElementById('tbody');
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${doctorId}</td>
+        <td>${specialisation}</td>
+        <td>${experience}</td>
+        <td>${email}</td>
+        <td>${mobile}</td>
+        <td><span class="role ${roleClass}">${role}</span></td>
+        <td><button class="delete-btn">delete</button></td>
+      `;
+
+      row.querySelector('.delete-btn').addEventListener('click', function() {
+        row.remove();
+        if (tbody.rows.length === 0) {
+          const empty = document.createElement('tr');
+          empty.id = 'empty-row';
+          empty.innerHTML = '<td colspan="8">No records yet. Add a doctor above.</td>';
+          tbody.appendChild(empty);
+        }
+      });
+
+      tbody.appendChild(row);
+      document.getElementById('doctorForm').reset();
+    });
+  </script>
+
+</body>
+</html>
