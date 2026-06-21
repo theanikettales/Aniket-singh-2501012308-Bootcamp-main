@@ -1,4 +1,3 @@
-<!--Assignment-1 Calculator-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,7 +100,25 @@
     </div>
   </div>
 
+  <script>
+    
+    function press(val) {
+      document.getElementById('display').value += val;
+    }
 
+    function clearDisplay() {
+      document.getElementById('display').value = '';
+    }
+
+    function calculate() {
+      var display = document.getElementById('display');
+      try {
+        display.value = eval(display.value);
+      } catch (e) {
+        display.value = 'Error';
+      }
+    }
+  </script>
 
 </body>
 </html>
