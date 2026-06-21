@@ -1,23 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Coding Student</h1>
-    <button onClick="changeRed()">Change Text color to red</button>
-    <button onClick="changeYellow()">Change Text color to yellow</button>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Calculator</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+
+      .input-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      input {
+        padding: 8px 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 8px 20px;
+        font-size: 14px;
+        border: 1px solid #333;
+        background: white;
+        cursor: pointer;
+      }
+
+      #result {
+        font-size: 16px;
+        color: #333;
+        border-top: 1px solid #ccc;
+        padding-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Day 1: Assignment-2 &nbsp; Mini Calculator &nbsp; Github Repo Link <span style="color:red">*</span></p>
+
+    <div class="input-row">
+      <input type="number" id="num1" placeholder="enter 1st Number" />
+      <input type="number" id="num2" placeholder="enter 2nd Number" />
+    </div>
+
+    <div class="btn-row">
+      <button onclick="calc('add')">Add</button>
+      <button onclick="calc('subtract')">Subtract</button>
+      <button onclick="calc('multiply')">Multiply</button>
+      <button onclick="calc('divide')">Divide</button>
+    </div>
+
+    <div id="result">Your answer</div>
+
+    <script>
+      function calc(op) {
+        const a = parseFloat(document.getElementById("num1").value);
+        const b = parseFloat(document.getElementById("num2").value);
+        const result = document.getElementById("result");
+
+        if (isNaN(a) || isNaN(b)) {
+          result.textContent = "Please enter both numbers.";
+          return;
+        }
+
+        let answer;
+        if (op === "add")           answer = a + b;
+        else if (op === "subtract") answer = a - b;
+        else if (op === "multiply") answer = a * b;
+        else if (op === "divide") {
+          if (b === 0) { result.textContent = "Cannot divide by zero."; return; }
+          answer = a / b;
+        }
+
+        result.textContent = "Your answer: " + parseFloat(answer.toFixed(10));
+      }
+    </script>
+  </body>
 </html>
-
-<script>
-  function changeRed(){
-    document.querySelector("h1").style.color = "red";
-  }
-
-  function changeYellow(){
-    document.querySelector("h1").style.color = "yellow";
-  }
-</script>
