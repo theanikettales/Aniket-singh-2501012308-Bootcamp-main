@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building Slideshow</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1a1a2e;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    /* SLIDESHOW */
+    .slideshow-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .slide {
+      display: none;
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .slide.active { display: block; }
+
+    .slide img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.75));
+      color: white;
+      padding: 32px 24px 20px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .slide-number {
+      position: absolute;
+      top: 16px; right: 18px;
+      background: rgba(0,0,0,0.55);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    /* ARROWS */
+    .arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: none;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .arrow:hover { background: rgba(255,255,255,0.3); }
+    .arrow.prev { left: 12px; }
+    .arrow.next { right: 12px; }
+
+    /* DOTS */
+    .dots {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dot.active { background: #fff; transform: scale(1.3); }
+
+    /* THUMBNAILS */
+    .thumbs {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      max-width: 860px;
+      width: 100%;
+    }
+    .thumbs::-webkit-scrollbar { height: 4px; }
+    .thumbs::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+
+    .thumb {
+      flex-shrink: 0;
+      width: 72px; height: 52px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+      opacity: 0.55;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb.active { border-color: #fff; opacity: 1; }
+
+    /* CONTROLS */
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      align-items: center;
+    }
+    .btn {
+      padding: 8px 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: rgba(255,255,255,0.18); }
+    .btn.active-btn { background: rgba(255,255,255,0.25); }
+
+    .speed-label { color: rgba(255,255,255,0.6); font-size: 13px; }
+    select.speed-sel {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    select.speed-sel option { background: #222; }
+  </style>
+</head>
+<body>
+
+<h1>Day 4: Building Slideshow</h1>
+
+<div class="slideshow-wrapper">
+  <button class="arrow prev" onclick="changeSlide(-1)">&#8592;</button>
+  <button class="arrow next" onclick="changeSlide(1)">&#8594;</button>
+
+  <div id="slides-container"></div>
+  <div class="slide-number" id="slide-num">1 / 20</div>
+</div>
+
+<div class="dots" id="dots"></div>
+
+<div class="thumbs" id="thumbs"></div>
+
+<div class="controls">
+  <button class="btn" id="play-btn" onclick="togglePlay()">⏸ Pause</button>
+  <span class="speed-label">Speed:</span>
+  <select class="speed-sel" onchange="changeSpeed(this.value)">
+    <option value="2000">Fast (2s)</option>
+    <option value="3500" selected>Normal (3.5s)</option>
+    <option value="6000">Slow (6s)</option>
+  </select>
+</div>
+
+<script>
+  const buildings = [
+    { url: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&auto=format&fit=crop", caption: "Empire State Building — New York, USA" },
+    { url: "https://images.unsplash.com/photo-1543259560-2f6dd7b96a3e?w=900&auto=format&fit=crop", caption: "Burj Khalifa — Dubai, UAE" },
+    { url: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&auto=format&fit=crop", caption: "Sydney Opera House — Sydney, Australia" },
+    { url: "https://images.unsplash.com/photo-1568745593807-be0929a3ec6d?w=900&auto=format&fit=crop", caption: "The Shard — London, UK" },
+    { url: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=900&auto=format&fit=crop", caption: "Taj Mahal — Agra, India" },
+    { url: "https://images.unsplash.com/photo-1597074866923-dc0589150358?w=900&auto=format&fit=crop", caption: "Sagrada Família — Barcelona, Spain" },
+    { url: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=900&auto=format&fit=crop", caption: "Eiffel Tower — Paris, France" },
+    { url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&auto=format&fit=crop", caption: "Colosseum — Rome, Italy" },
+    { url: "https://images.unsplash.com/photo-1545843809-7f9f0a4e7d7f?w=900&auto=format&fit=crop", caption: "Big Ben — London, UK" },
+    { url: "https://images.unsplash.com/photo-1570939274717-7eda259b50ed?w=900&auto=format&fit=crop", caption: "Burj Al Arab — Dubai, UAE" },
+    { url: "https://images.unsplash.com/photo-1464817739973-0128fe77aaa1?w=900&auto=format&fit=crop", caption: "One World Trade Center — New York, USA" },
+    { url: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=900&auto=format&fit=crop", caption: "Tokyo Skytree — Tokyo, Japan" },
+    { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&auto=format&fit=crop", caption: "CN Tower — Toronto, Canada" },
+    { url: "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=900&auto=format&fit=crop", caption: "Petronas Twin Towers — Kuala Lumpur, Malaysia" },
+    { url: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=900&auto=format&fit=crop", caption: "Notre-Dame Cathedral — Paris, France" },
+    { url: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=900&auto=format&fit=crop", caption: "Shanghai Tower — Shanghai, China" },
+    { url: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900&auto=format&fit=crop", caption: "Burj Khalifa at Night — Dubai, UAE" },
+    { url: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop", caption: "Glass Architecture — Modern High-rise" },
+    { url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&auto=format&fit=crop", caption: "Modern Skyscrapers — City Skyline" },
+    { url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=900&auto=format&fit=crop", caption: "City of Skyscrapers — Urban Architecture" },
+  ];
+
+  let current = 0;
+  let playing = true;
+  let interval;
+  let speed = 3500;
+
+  const container = document.getElementById('slides-container');
+  const dotsEl    = document.getElementById('dots');
+  const thumbsEl  = document.getElementById('thumbs');
+
+  // Build slides, dots, thumbs
+  buildings.forEach((b, i) => {
+    // Slide
+    const slide = document.createElement('div');
+    slide.className = 'slide' + (i === 0 ? ' active' : '');
+    slide.innerHTML = `<img src="${b.url}" alt="${b.caption}" loading="${i < 3 ? 'eager' : 'lazy'}" /><div class="caption">${b.caption}</div>`;
+    container.appendChild(slide);
+
+    // Dot
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    dotsEl.appendChild(dot);
+
+    // Thumb
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb' + (i === 0 ? ' active' : '');
+    thumb.innerHTML = `<img src="${b.url}" alt="${b.caption}" loading="lazy" />`;
+    thumb.onclick = () => goTo(i);
+    thumbsEl.appendChild(thumb);
+  });
+
+  function goTo(n) {
+    document.querySelectorAll('.slide')[current].classList.remove('active');
+    document.querySelectorAll('.dot')[current].classList.remove('active');
+    document.querySelectorAll('.thumb')[current].classList.remove('active');
+    current = (n + buildings.length) % buildings.length;
+    document.querySelectorAll('.slide')[current].classList.add('active');
+    document.querySelectorAll('.dot')[current].classList.add('active');
+    const activeThumb = document.querySelectorAll('.thumb')[current];
+    activeThumb.classList.add('active');
+    activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    document.getElementById('slide-num').textContent = (current + 1) + ' / ' + buildings.length;
+  }
+
+  function changeSlide(dir) { goTo(current + dir); }
+
+  function startAuto() { interval = setInterval(() => goTo(current + 1), speed); }
+  function stopAuto()  { clearInterval(interval); }
+
+  function togglePlay() {
+    playing = !playing;
+    const btn = document.getElementById('play-btn');
+    if (playing) { startAuto(); btn.textContent = '⏸ Pause'; btn.classList.remove('active-btn'); }
+    else         { stopAuto();  btn.textContent = '▶ Play';  btn.classList.add('active-btn'); }
+  }
+
+  function changeSpeed(val) {
+    speed = parseInt(val);
+    if (playing) { stopAuto(); startAuto(); }
+  }
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+    if (e.key === ' ') { e.preventDefault(); togglePlay(); }
+  });
+
+  startAuto();
+</script>
+
+</body>
+</html>
