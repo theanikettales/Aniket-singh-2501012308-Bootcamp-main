@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cricket Score Board</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 40px 16px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+  }
+
+  .scoreboard {
+    background: #3d617c;
+    color: #fff;
+    border-radius: 4px;
+    padding: 60px 20px;
+  }
+
+  .scoreboard h1 {
+    font-size: 32px;
+    margin: 0 0 40px;
+    font-weight: 700;
+  }
+
+  .stat {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 12px 0;
+  }
+
+  .info-text {
+    margin: 20px 0;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+    border: 1px solid #888;
+    background: #f5f5f5;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  button:hover:not(:disabled) {
+    background: #e6e6e6;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .game-over {
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #b00000;
+    min-height: 18px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="scoreboard">
+    <h1>Cricket Score Board</h1>
+    <div class="stat">Balls : <span id="balls">0</span></div>
+    <div class="stat">Runs : <span id="runs">0</span></div>
+  </div>
+
+  <p class="info-text">You get total of 6 balls(1 over). The button gets disabled after that</p>
+
+  <div class="controls">
+    <button id="hitBtn">Click to hit the ball</button>
+    <button id="resetBtn">Reset Game</button>
+  </div>
+
+  <div class="game-over" id="gameOverMsg"></div>
+</div>
+
+<script>
+  const TOTAL_BALLS = 6;
+  const possibleRuns = [0, 1, 2, 3, 4, 6];
+
+  let balls = 0;
+  let runs = 0;
+
+  const ballsEl = document.getElementById('balls');
+  const runsEl = document.getElementById('runs');
+  const hitBtn = document.getElementById('hitBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const gameOverMsg = document.getElementById('gameOverMsg');
+
+  function updateDisplay() {
+    ballsEl.textContent = balls;
+    runsEl.textContent = runs;
+  }
+
+  function hitBall() {
+    if (balls >= TOTAL_BALLS) return;
+
+    const runScored = possibleRuns[Math.floor(Math.random() * possibleRuns.length)];
+    balls += 1;
+    runs += runScored;
+
+    updateDisplay();
+
+    if (balls >= TOTAL_BALLS) {
+      hitBtn.disabled = true;
+      gameOverMsg.textContent = `Over complete! Final score: ${runs} runs off ${balls} balls.`;
+    }
+  }
+
+  function resetGame() {
+    balls = 0;
+    runs = 0;
+    updateDisplay();
+    hitBtn.disabled = false;
+    gameOverMsg.textContent = '';
+  }
+
+  hitBtn.addEventListener('click', hitBall);
+  resetBtn.addEventListener('click', resetGame);
+</script>
+
+</body>
+</html>
