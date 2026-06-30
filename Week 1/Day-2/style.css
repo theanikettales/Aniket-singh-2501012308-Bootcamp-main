@@ -1,0 +1,46 @@
+/* Universal Selector */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+
+body {
+  background: #f4f4f4;
+  font-family: Arial;
+  text-align: center;
+  padding: 50px;
+}
+
+/* Heading */
+
+h1 {
+  color: darkblue;
+  margin-bottom: 20px;
+}
+
+/* Paragraph */
+
+.para {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* Button */
+
+button {
+  background: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: darkblue;
+}

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 3 - Flexbox & CSS Position</title>
+
+    <style>
+      /* Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f5f5f5;
+      }
+
+      /* Navbar */
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #1e3a8a;
+        color: white;
+        padding: 15px 40px;
+        position: sticky;
+        top: 0;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .menu {
+        display: flex;
+        list-style: none;
+        gap: 25px;
+      }
+
+      .menu li {
+        cursor: pointer;
+      }
+
+      .menu li:hover {
+        color: yellow;
+      }
+
+      /* Hero Section */
+
+      .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 250px;
+        background: #2563eb;
+        color: white;
+        font-size: 35px;
+        font-weight: bold;
+      }
+
+      /* Flexbox Cards */
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 40px;
+      }
+
+      .card {
+        width: 280px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .card img {
+        width: 100%;
+      }
+
+      .card-content {
+        padding: 15px;
+      }
+
+      .card h3 {
+        margin-bottom: 10px;
+      }
+
+      .card p {
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1e40af;
+      }
+
+      /* CSS Position */
+
+      .position-box {
+        width: 350px;
+        height: 200px;
+        background: white;
+        margin: 40px auto;
+        position: relative;
+        border: 3px solid blue;
+      }
+
+      .absolute-box {
+        width: 100px;
+        height: 100px;
+        background: red;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      /* Grid Layout */
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 40px;
+      }
+
+      .grid-item {
+        background: #2563eb;
+        color: white;
+        padding: 40px;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      /* Responsive */
+
+      @media (max-width: 768px) {
+        .hero {
+          font-size: 24px;
+          height: 180px;
+        }
+
+        .navbar {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .menu {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .grid-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+
+    <nav class="navbar">
+      <div class="logo">My Website</div>
+
+      <ul class="menu">
+        <li>Home</li>
+
+        <li>About</li>
+
+        <li>Services</li>
+
+        <li>Contact</li>
+      </ul>
+    </nav>
+
+    <!-- Hero -->
+
+    <section class="hero">Learning Flexbox & CSS Layout</section>
+
+    <!-- Cards -->
+
+    <section class="container">
+      <div class="card">
+        <img src="https://picsum.photos/300/200?1" />
+
+        <div class="card-content">
+          <h3>HTML</h3>
+
+          <p>Learn the structure of webpages.</p>
+
+          <button>Read More</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://picsum.photos/300/200?2" />
+
+        <div class="card-content">
+          <h3>CSS</h3>
+
+          <p>Style webpages beautifully.</p>
+
+          <button>Read More</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://picsum.photos/300/200?3" />
+
+        <div class="card-content">
+          <h3>JavaScript</h3>
+
+          <p>Add interactivity to webpages.</p>
+
+          <button>Read More</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Position -->
+
+    <div class="position-box">
+      <div class="absolute-box">ABS</div>
+    </div>
+
+    <!-- Grid -->
+
+    <section class="grid-container">
+      <div class="grid-item">1</div>
+
+      <div class="grid-item">2</div>
+
+      <div class="grid-item">3</div>
+
+      <div class="grid-item">4</div>
+
+      <div class="grid-item">5</div>
+
+      <div class="grid-item">6</div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 2 - CSS Fundamentals</title>
+
+    <style>
+      /* Universal Selector */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Body */
+      body {
+        background: #f4f4f4;
+        padding: 20px;
+      }
+
+      /* Heading */
+      h1 {
+        text-align: center;
+        color: #0d47a1;
+        margin-bottom: 20px;
+      }
+
+      /* Section */
+      .section {
+        background: white;
+        margin: 20px auto;
+        padding: 20px;
+        width: 80%;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Element Selector */
+      h2 {
+        color: #1565c0;
+        margin-bottom: 10px;
+      }
+
+      /* Class Selector */
+      .text {
+        color: green;
+        font-size: 18px;
+      }
+
+      /* ID Selector */
+      #special {
+        color: red;
+        font-weight: bold;
+      }
+
+      /* Button */
+      button {
+        background: #1976d2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background: #0d47a1;
+      }
+
+      /* Color Box */
+      .color-box {
+        width: 250px;
+        background: orange;
+        color: white;
+        padding: 20px;
+        margin-top: 15px;
+      }
+
+      /* Box Model */
+      .box {
+        width: 250px;
+        padding: 20px;
+        margin-top: 20px;
+        border: 5px solid blue;
+        background: lightyellow;
+      }
+
+      /* Typography */
+      .typography p {
+        font-size: 18px;
+        line-height: 30px;
+        letter-spacing: 1px;
+      }
+
+      /* Student Card */
+      .card {
+        width: 300px;
+        margin: 20px auto;
+        background: white;
+        border-radius: 10px;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 0 15px gray;
+      }
+
+      .card img {
+        width: 120px;
+        border-radius: 50%;
+      }
+
+      .card h3 {
+        margin: 15px 0;
+      }
+
+      .card button {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Day 2 - CSS Fundamentals</h1>
+
+    <!-- Selectors -->
+    <div class="section">
+      <h2>1. CSS Selectors</h2>
+
+      <p class="text">This paragraph uses Class Selector.</p>
+
+      <p id="special">This paragraph uses ID Selector.</p>
+
+      <button>Hover Me</button>
+    </div>
+
+    <!-- Colors -->
+    <div class="section">
+      <h2>2. Colors & Background</h2>
+
+      <div class="color-box">Background Color Example</div>
+    </div>
+
+    <!-- Box Model -->
+    <div class="section">
+      <h2>3. CSS Box Model</h2>
+
+      <div class="box">
+        Content
+
+        <br /><br />
+
+        Padding
+
+        <br /><br />
+
+        Border
+
+        <br /><br />
+
+        Margin
+      </div>
+    </div>
+
+    <!-- Typography -->
+    <div class="section typography">
+      <h2>4. Typography</h2>
+
+      <p>
+        Typography controls the appearance of text. It includes font size, font
+        family, line height, letter spacing, and text alignment.
+      </p>
+    </div>
+
+    <!-- Student Card -->
+    <div class="section">
+      <h2>5. Mini Project - Student Card</h2>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/120" alt="Student" />
+
+        <h3>John Doe</h3>
+
+        <p>B.Tech CSE Student</p>
+
+        <p>Email : john@example.com</p>
+
+        <button>Contact</button>
+      </div>
+    </div>
+  </body>
+</html>
